@@ -26,6 +26,7 @@ dist-ssr
 
 # Environment files
 .env
+process.env
 
 # Backend credentials
 /backend/credentials.json
