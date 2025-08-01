@@ -29,3 +29,6 @@ dist-ssr
 
 # Backend credentials
 /backend/credentials.json
+
+# Python environment folder
+/backend/env/*

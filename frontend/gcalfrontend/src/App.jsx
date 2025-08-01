@@ -1,19 +1,15 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
-
-  if (showLogin) {
-    return <Login />;
-  }
+  const navigate = useNavigate(); // Hook for navigation
 
   return (
     <>
       <div className="landing-page">
         <h1>Welcome to GCal AI Assistant</h1>
         <p>Effortlessly add events to your Google Calendar through conversational AI.</p>
-        <button onClick={() => setShowLogin(true)}>Get Started</button>
+        <button onClick={() => navigate('/login')}>Get Started</button> {/* Navigate to Login */}
       </div>
     </>
   );
