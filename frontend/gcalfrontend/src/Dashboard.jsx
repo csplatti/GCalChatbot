@@ -20,7 +20,7 @@ function Dashboard() {
       const timeMax = oneMonthLater.toISOString();
 
       // Fetch events within the next month from Google Calendar API
-      fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`, {
+      fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${timeMin}&singleEvents=true&orderBy=startTime`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
