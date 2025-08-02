@@ -46,12 +46,33 @@ function Dashboard() {
 
   const handleSendMessage = () => {
     if (input.trim()) {
-      setMessages([...messages, { sender: 'user', text: input }]);
+      const userMessage = { sender: 'user', text: input };
+      setMessages([...messages, userMessage]);
       setInput('');
-      // Simulate chatbot response
-      setTimeout(() => {
-        setMessages(prev => [...prev, { sender: 'bot', text: 'This is a simulated response.' }]);
-      }, 1000);
+
+      // Send the message to the placeholder API URL
+      fetch(import.meta.env.VITE_BREV_CHAT_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: input }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const botMessage = { sender: 'bot', text: data.response };
+          setMessages(prev => [...prev, botMessage]); // Add the bot's response to the chat
+        })
+        .catch(error => {
+          console.error('Error sending message to the API:', error);
+          const errorMessage = { sender: 'bot', text: 'Sorry, something went wrong.' };
+          setMessages(prev => [...prev, errorMessage]); // Add an error message to the chat
+        });
     }
   };
 
